@@ -12,7 +12,9 @@ jobs:
   print-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     docker:
-      - image: circleci/node:13.8.0 
+      - image: circleci/node:13.8.0
+    environment:
+      MY_NAME: Todd
     # Add steps to the job
     steps:
       - checkout
