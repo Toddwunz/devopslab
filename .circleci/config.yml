@@ -19,9 +19,22 @@ jobs:
       - run:
           command: "echo Hello, "
 
+  print-world:
+  # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    docker:
+      - image: circleci/node:13.8.0 
+  # Add steps to the job
+    steps:
+      - checkout
+      - run:
+          command: "echo world!"
+
 workflows:
   # Name the workflow "welcome"
   hello-world:
     # Run the welcome/run job in its own container
     jobs:
       - print-hello
+      - print-world:
+          requires:
+            - print-hello
