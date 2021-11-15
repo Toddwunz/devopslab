@@ -27,7 +27,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: "echo world!"
+          command: "echo ${MY_NAME}"
 
 workflows:
   # Name the workflow "welcome"
