@@ -17,7 +17,11 @@ jobs:
     steps:
       - checkout
       - run:
-          command: "echo Hello, "
+          command: "echo Hello world > output.txt "
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt
 
   print-world:
   # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -28,8 +32,10 @@ jobs:
       MY_NAME: Todd
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
-          command: "echo ${MY_NAME}"
+          command: "cat output.txt"
 
 workflows:
   # Name the workflow "welcome"
