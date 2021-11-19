@@ -16,7 +16,10 @@ commands:
         type: string
         default: "Hello World"
     steps:
-      - run: echo << parameters.to >> $CIRCLE_WORKFLOW_ID
+      - run: 
+          command: echo << parameters.to >> $CIRCLE_WORKFLOW_ID
+          when: on_fail
+
 jobs:
   test-print:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -25,9 +28,8 @@ jobs:
     # Add steps to the job
     steps:
       - run: exit 1
-      - run:
-          command: print_pipeline_id
-          when: on_fail
+      - print_pipeline_id:
+          to: workflow
      
 workflows:
   # Name the workflow "welcome"
