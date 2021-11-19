@@ -9,7 +9,7 @@ orbs:
   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
 jobs:
-  print-hello:
+  print_pipeline_id:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     docker:
       - image: circleci/node:13.8.0
@@ -17,33 +17,12 @@ jobs:
     steps:
       - checkout
       - run:
-          command: echo "Hello world" > ~/output.txt
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - output.txt
-
-  print-world:
-  # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    docker:
-      - image: circleci/node:13.8.0 
-  # Add steps to the job
-    environment:
-      MY_NAME: Todd
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/
-      - run:
-          command: "cat ~/output.txt"
-
+          command: echo $CIRCLE_WORKFLOW_ID
+     
 workflows:
   # Name the workflow "welcome"
   hello-world:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
-      - print-hello
-      - print-world:
-          requires:
-            - print-hello
+      - print_pipeline_id
