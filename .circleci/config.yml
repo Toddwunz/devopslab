@@ -26,7 +26,7 @@ jobs:
     steps:
       - run: exit 1
       - run:
-          command: print_pipeline_id.to workflow
+          command: print_pipeline_id
           when: on_fail
      
 workflows:
