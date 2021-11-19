@@ -24,9 +24,10 @@ jobs:
       - image: circleci/node:13.8.0
     # Add steps to the job
     steps:
-      - checkout
-      - print_pipeline_id:
-          to: "workflow"
+      - run: exit 1
+      - run:
+          command: print_pipeline_id.to workflow
+          when: on_fail
      
 workflows:
   # Name the workflow "welcome"
