@@ -25,7 +25,8 @@ jobs:
     # Add steps to the job
     steps:
       - checkout
-      - print_pipeline_id
+      - print_pipeline_id:
+          to: "workflow"
      
 workflows:
   # Name the workflow "welcome"
