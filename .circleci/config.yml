@@ -18,6 +18,22 @@ jobs:
                 --template-file template.yml \
                 --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
                 --region us-east-1
+  configure_infrastructure: 
+      docker:
+        - image: amazon/aws-cli
+      steps:
+        - checkout
+        - add_ssh_keys:
+                # You can get this ID in the section where you registered the SSH Key
+                fingerprints: ["2f:d4:48:b8:96:c1:0e:60:15:84:b2:27:ae:93:e2:6c"] 
+        - run:
+            name: Install Ansible
+            command: |
+              sudo amazon-linux-extras install ansible2
+        - run:
+            name: Run Playbook and Configure server
+            command: |
+              ansible-playbook -i  [playbook-file]
 # Sequential workflow
 workflows:
   # Name the workflow
