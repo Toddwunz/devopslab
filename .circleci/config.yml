@@ -20,7 +20,7 @@ jobs:
                 --region us-east-1
   configure_infrastructure: 
       docker:
-        - image: amazon/aws-cli
+        - image: python:3.7-alpine3.11
       steps:
         - checkout
         - add_ssh_keys:
@@ -29,14 +29,14 @@ jobs:
         - run:
             name: Install Ansible
             command: |
-              sudo amazon-linux-extras install ansible2
+              apk add --update ansible
         - run:
             name: Run Playbook and Configure server
             command: |
-              ansible-playbook -i  [playbook-file]
+              ansible-playbook -i inventory main.yml
 # Sequential workflow
 workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - create_infrastructure
+      - configure_infrastructure
