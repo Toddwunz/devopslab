@@ -34,6 +34,19 @@ jobs:
             name: Run Playbook and Configure server
             command: |
               ansible-playbook -i inventory main.yml
+    test_infrastructure: 
+      docker:
+        - image: python:3.7-alpine3.11
+      steps:
+        - checkout
+        - add_ssh_keys:
+            fingerprints:
+              - "8e:c6:0d:8f:6c:1d:e4:02:31:ce:8d:a9:13:53:1f:22" 
+        - run:
+            name: test connection
+            command: |
+              ssh ec2-user@3.82.223.24  date
+
 # Sequential workflow
 workflows:
   # Name the workflow

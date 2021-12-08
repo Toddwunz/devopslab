@@ -7,7 +7,7 @@ Resources:
     Properties:
       SecurityGroups:
         - !Ref InstanceSecurityGroup
-      KeyName: aws-vpc-lab
+      KeyName: 
       ImageId: 'ami-04902260ca3d33422'
       InstanceType: t2.micro
   InstanceSecurityGroup:
