@@ -18,6 +18,7 @@ jobs:
                 --template-file template.yml \
                 --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
                 --region us-east-1
+
   configure_infrastructure: 
       docker:
         - image: python:3.7-alpine3.11
@@ -34,6 +35,7 @@ jobs:
             name: Run Playbook and Configure server
             command: |
               ansible-playbook -i inventory main.yml
+              
     test_infrastructure: 
       docker:
         - image: python:3.7-alpine3.11
@@ -52,4 +54,4 @@ workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - configure_infrastructure
+      - test_infrastructure
