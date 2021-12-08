@@ -47,7 +47,7 @@ jobs:
         - run:
             name: test connection
             command: |
-               which ssh 
+               ssh ec2-user@3.82.223.24 date
                
 # Sequential workflow
 workflows:
