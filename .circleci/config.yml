@@ -31,10 +31,6 @@ jobs:
             name: Install Ansible
             command: |
               apk add --update ansible
-        - run:
-            name: Run Playbook and Configure server
-            command: |
-              ansible-playbook -i inventory main.yml
               
   test_infrastructure: 
       docker:
@@ -54,4 +50,4 @@ workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - test_infrastructure
+      - configure_infrastructure
