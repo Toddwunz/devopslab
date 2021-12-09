@@ -26,7 +26,7 @@ jobs:
         - checkout
         - add_ssh_keys:
             fingerprints:
-              - "8e:c6:0d:8f:6c:1d:e4:02:31:ce:8d:a9:13:53:1f:22" 
+              - "4c:0c:45:b6:e2:c4:be:c3:73:b3:23:57:32:c8:9a:ec" 
         - run:
             name: Install Ansible
             command: |
@@ -54,6 +54,6 @@ workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - create_infrastructure
+      - configure_infrastructure
 
 
