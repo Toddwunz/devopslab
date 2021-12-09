@@ -49,8 +49,10 @@ jobs:
                 # Test if website exists
                 if curl -s --head ${URL} 
                 then
+                  echo "web access successful"
                   return 0
                 else
+                  echo "can't access website"
                   return 1
                 fi
                
