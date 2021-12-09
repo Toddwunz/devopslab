@@ -15,9 +15,14 @@
   yum:
     autoremove: yes
 
-- name: "install nodejs repo"	
+- name: "Download setup package"
+  get_url:
+    url: https://rpm.nodesource.com/setup_14.x
+    dest: /tmp/setup_14.x
+
+- name: "install nodejs repo"
   become: yes
-  ansible.builtin.command: curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+  ansible.builtin.command: sudo bash /tmp/setup_14.x
 
 - name: "install dependencies."
   become: yes
