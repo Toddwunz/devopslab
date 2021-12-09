@@ -36,9 +36,9 @@ jobs:
             command: |
               ansible-playbook -i inventory main.yml
 
-    test_infrastructure: 
+  test_infrastructure: 
       docker:
-        - image: python:3.7-alpine3.11
+        - image: amazon/aws-cli
       steps:
         - checkout
         - add_ssh_keys:
@@ -47,11 +47,13 @@ jobs:
         - run:
             name: test connection
             command: |
-              ssh ec2-user@3.82.223.24  date
-
+               ssh ec2-user@3.82.223.24 date
+               
 # Sequential workflow
 workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
       - create_infrastructure
+
+
