@@ -35,7 +35,7 @@ jobs:
             name: Run Playbook and Configure server
             command: |
               ansible-playbook -i inventory main.yml
-              
+
     test_infrastructure: 
       docker:
         - image: python:3.7-alpine3.11
@@ -54,4 +54,4 @@ workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - test_infrastructure
+      - create_infrastructure
