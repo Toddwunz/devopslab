@@ -36,18 +36,23 @@ jobs:
             command: |
               ansible-playbook -i inventory main.yml
 
-  test_infrastructure: 
-      docker:
-        - image: amazon/aws-cli
-      steps:
-        - checkout
-        - add_ssh_keys:
-            fingerprints:
-              - "8e:c6:0d:8f:6c:1d:e4:02:31:ce:8d:a9:13:53:1f:22" 
-        - run:
-            name: test connection
-            command: |
-               ssh ec2-user@3.82.223.24 date
+  # Exercise: Smoke Testing
+  smoke_test:
+        docker:
+          - image: alpine:latest
+        steps:
+          - run: apk add --update curl
+          - run:
+              name: smoke test
+              command: |
+                URL="http://3.92.201.140:3000"
+                # Test if website exists
+                if curl -s --head ${URL} 
+                then
+                  return 0
+                else
+                  return 1
+                fi
                
 # Sequential workflow
 workflows:
@@ -55,5 +60,8 @@ workflows:
   infrastructure_workflow:
     jobs:
       - configure_infrastructure
+      - smoke_test:
+          requires:
+            - configure_infrastructure
 
 
