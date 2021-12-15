@@ -58,7 +58,7 @@ jobs:
           - run:
               name: smoke test
               command: |
-                URL="http://3.92.201.140:3000"
+                URL="http://34.233.24.95:3000"
                 # Test if website exists
                 if curl -s --head ${URL}
                 then
@@ -75,6 +75,9 @@ workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - create_infrastructure
+      - configure_infrastructure
+      - smoke_test:
+          requires:
+            - configure_infrastructure
 
 
