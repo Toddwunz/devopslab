@@ -60,7 +60,7 @@ jobs:
               command: |
                 URL="http://3.92.201.140:3000"
                 # Test if website exists
-                if curl -s --head ${URL} 
+                if curl -s --head ${URL}
                 then
                   echo "web access successful"
                   return 0
@@ -68,6 +68,7 @@ jobs:
                   echo "can't access website"
                   return 1
                 fi
+          - destroy_environment
                
 # Sequential workflow
 workflows:
