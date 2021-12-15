@@ -52,9 +52,16 @@ jobs:
   # Exercise: Smoke Testing
   smoke_test:
         docker:
-          - image: amazon/aws-cli
+          - image: python:3.7-alpine3.11
         steps:
-          - run: apk add --update curl
+          - checkout
+          - add_ssh_keys:
+              fingerprints:
+                - "77:ea:c2:78:08:12:68:58:bc:ff:e9:4f:e7:6f:0b:1c"
+          - run:
+              name: Install Ansible
+              command: |
+                apk add --update ansible,curl
           - run:
               name: smoke test
               command: |
