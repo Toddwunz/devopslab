@@ -58,7 +58,7 @@ jobs:
           - run:
               name: smoke test
               command: |
-                URL="http://3.92.201.140:30000"
+                URL="http://3.92.201.140:3000"
                 # Test if website exists
                 if curl -s --head ${URL} 
                 then
