@@ -47,7 +47,8 @@ jobs:
         - run:
             name: Run Playbook and Configure server
             command: |
-              ansible-playbook -i inventory main.yml
+              export EC2IP=$(cat ~/textfile.txt)
+              ansible-playbook -i $EC2IP main.yml
 
   # Exercise: Smoke Testing
   smoke_test:
@@ -76,13 +77,31 @@ jobs:
                   return 1
                 fi
           - destroy_environment
+  get_EC2_IP:
+        docker:
+          - image: amazon/aws-cli
+        steps:
+          - checkout
+          - run: yum install -y tar gzip
+          - run:
+              name: get new ec2 ip and save to inventory
+              command: |
+                aws ec2 describe-instances \
+                --query "Reservations[*].Instances[*].PublicIpAddress" \
+                --output=text > ~/textfile.txt
+          - persist_to_workspace:
+              root: ~/
+              paths: 
+                - textfile.txt 
                
 # Sequential workflow
 workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - configure_infrastructure
+      - create_infrastructure
+      - configure_infrastructure:
+          requires: - create_infrastructure
       - smoke_test:
           requires:
             - configure_infrastructure
