@@ -99,10 +99,10 @@ workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - create_infrastructure
+      - get_EC2_IP
       - configure_infrastructure:
           requires:
-            - create_infrastructure
+            - get_EC2_IP
       - smoke_test:
           requires:
             - configure_infrastructure
