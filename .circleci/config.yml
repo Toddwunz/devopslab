@@ -50,7 +50,7 @@ jobs:
             name: Run Playbook and Configure server
             command: |
               export EC2IP=$(cat ~/textfile.txt)
-              ansible-playbook -i $EC2IP main.yml
+              ansible-playbook -i $EC2IP, main.yml
 
   # Exercise: Smoke Testing
   smoke_test:
@@ -94,14 +94,17 @@ jobs:
           - persist_to_workspace:
               root: ~/
               paths: 
-                - textfile.txt 
+                - textfile.txt
                
 # Sequential workflow
 workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - get_EC2_IP
+      - create_infrastructure
+      - get_EC2_IP:
+          requires: 
+            - create_infrastructure
       - configure_infrastructure:
           requires:
             - get_EC2_IP
