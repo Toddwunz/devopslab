@@ -134,15 +134,15 @@ workflows:
   # Name the workflow
   infrastructure_workflow:
     jobs:
-      - create_infrastructure
-      - get_EC2_IP:
-          requires: 
-            - create_infrastructure
-      - configure_infrastructure:
-          requires:
-            - get_EC2_IP
-      - smoke_test:
-          requires:
-            - configure_infrastructure
+    #  - create_infrastructure
+    #  - get_EC2_IP:
+    #      requires: 
+    #        - create_infrastructure
+    #  - configure_infrastructure:
+    #      requires:
+    #        - get_EC2_IP
+    #  - smoke_test:
+    #      requires:
+    #        - configure_infrastructure
 
 
