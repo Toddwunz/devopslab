@@ -144,8 +144,9 @@ workflows:
     #  - smoke_test:
     #      requires:
     #        - configure_infrastructure
-      - create_and_deploy_front_end:
+      - create_and_deploy_front_end
+      - get_last_deployment_id:
           requires:
-             - get_last_deployment_id
+            - create_and_deploy_front_end
 
 
