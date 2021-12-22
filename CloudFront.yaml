@@ -1,0 +1,37 @@
+Parameters:
+# Existing Bucket name
+    PipelineID:
+      Description: Existing Bucket name
+      Type: String
+      Default: my-131372365054-bucket
+
+Resources:
+    CloudFrontOriginAccessIdentity:
+      Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+      Properties:
+        CloudFrontOriginAccessIdentityConfig:
+          Comment: Origin Access Identity for Serverless Static Website
+    WebpageCDN:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Origins:
+            - DomainName: !Sub "${PipelineID}.s3.us-east-1.amazonaws.com"
+              Id: webpage
+              CustomOriginConfig:
+                HTTPPort: '80'
+                HTTPSPort: '443'
+                OriginProtocolPolicy: http-only
+          Enabled: True
+          DefaultRootObject: index.html
+          DefaultCacheBehavior:
+            ForwardedValues:
+              QueryString: False
+            TargetOriginId: webpage
+            ViewerProtocolPolicy: allow-all
+
+Outputs:
+    PipelineID:
+      Value: !Sub ${PipelineID}
+      Export:
+        Name: PipelineID
