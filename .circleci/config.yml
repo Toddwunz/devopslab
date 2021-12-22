@@ -65,10 +65,13 @@ jobs:
               name: Install Ansible
               command: |
                 apk add --update ansible curl
+          - attach_workspace:
+              at: ~/
           - run:
               name: smoke test
               command: |
-                URL="http://34.233.24.95:3000"
+                export EC2IP=$(cat ~/textfile.txt)
+                URL="http://${EC2IP}:3000"
                 # Test if website exists
                 if curl -s --head ${URL}
                 then
