@@ -23,4 +23,7 @@ Resources:
           FromPort: '3000'
           ToPort: '3000'
           CidrIp: 0.0.0.0/0
-
+  MyEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref EC2Instance
